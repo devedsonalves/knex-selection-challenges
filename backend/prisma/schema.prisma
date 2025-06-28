@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Deputado {
+  id       Int       @id
+  nome     String
+  uf       String
+  partido  String
+  despesas Despesa[]
+}
+
+model Despesa {
+  id             Int      @id
+  dataEmissao    String
+  txtFornecedor  String
+  vlrLiquido     Float
+  deputado       Deputado @relation(fields: [deputadoId], references: [id])
+  deputadoId     Int
+} 
